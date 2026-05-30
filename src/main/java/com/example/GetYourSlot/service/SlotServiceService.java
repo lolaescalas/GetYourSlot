@@ -1,6 +1,7 @@
 package com.example.GetYourSlot.service;
 
 import com.example.GetYourSlot.dto.ServiceResponse;
+import com.example.GetYourSlot.model.SlotService;
 import com.example.GetYourSlot.repository.SlotServiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,16 @@ public class SlotServiceService {
                     r.setPrice(s.getPrice());
                     return r;
                 }).orElseThrow(() -> new RuntimeException("Service not found"));
+    }
+
+    public ServiceResponse create(SlotService service) {
+        SlotService saved = serviceRepository.save(service);
+        ServiceResponse r = new ServiceResponse();
+        r.setId(saved.getId());
+        r.setName(saved.getName());
+        r.setDescription(saved.getDescription());
+        r.setDurationMinutes(saved.getDurationMinutes());
+        r.setPrice(saved.getPrice());
+        return r;
     }
 }
